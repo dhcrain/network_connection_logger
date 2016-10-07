@@ -22,7 +22,11 @@ def main():
         response = os.system("ping -c 1 " + hostname)
         if response == 0:
             print(hostname + ' is up!')
-            ping, download, upload = get_speedtest_results()
+            try:
+                ping, download, upload = get_speedtest_results()
+            except TypeError as err:
+                print(hostname + ' is down!')
+                logging.info(err)
         else:
             print(hostname + ' is down!')
             # logging.error(hostname + ' is down!')
