@@ -50,7 +50,6 @@ def get_speedtest_results():
         return ping, download, upload
     else:
         logging.error('internet is down!')
-        raise ValueError('TEST FAILED')
 
 
 while True:
