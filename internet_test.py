@@ -2,6 +2,12 @@ import os
 import logging
 import time
 
+"""
+Set the time you want to rest after the test was
+completed to start the test again.
+"""
+sleeping = 30
+
 logging.basicConfig(filename="connection.log",
                     format='%(levelname)s: %(asctime)s: %(message)s',
                     datefmt='%m/%d/%Y %I:%M:%S %p',
@@ -16,7 +22,6 @@ def main():
         response = os.system("ping -c 1 " + hostname)
         if response == 0:
             print(hostname + ' is up!')
-            # logging.info(hostname + ' is up!')
             ping, download, upload = get_speedtest_results()
         else:
             print(hostname + ' is down!')
@@ -46,7 +51,6 @@ def get_speedtest_results():
             upload = float(value)
 
     if all((ping, download, upload)):  # if all 3 values were parsed
-        # logging.info(ping, download, upload)
         return ping, download, upload
     else:
         logging.error('internet is down!')
@@ -54,6 +58,6 @@ def get_speedtest_results():
 
 while True:
     main()
-    time.sleep(30)
+    time.sleep(sleeping)
 
 logging.info("Done!")
